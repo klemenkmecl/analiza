@@ -20,13 +20,12 @@ def shrani(url, ime_datoteke):
     except requests.exceptions.ConnectionError:
         print('Stran ne obstaja!')
     else:
-        print(vsebina_strani.encoding)
         with open(ime_datoteke, 'w', encoding='utf-8') as datoteka:
             besedilo = str(vsebina_strani.text)
             datoteka.write(besedilo)
             print('Shranjeno!')
 
-#shrani('https://www.yelp.com/locations', 'prva_stran.html')
+# shrani('https://www.yelp.com/locations', '..\\prva_stran.html')
 
 
 #regex_drzave = re.compile(r'<li class="state">\\n\s+<div>(?P<drzava>[A-Z]+)</div>\\n\s+<ul class="cities">\\n\s+(?P<mesta>.*?)\s+</ul>\\n\s+</li>\\n', flags=re.DOTALL)
@@ -34,7 +33,7 @@ def shrani(url, ime_datoteke):
 regex_drzave = re.compile(r'<li class="state">\s*<div>(?P<drzava>[A-Z]+)</div>\s*<ul class="cities">(?P<mesta>.*?)</ul>\s*</li>', flags=re.DOTALL)
 regex_mesta = re.compile(r'<li><a href="/(?P<urlmesta>.*?)">(?P<mesto>.*?)</a></li>', flags=re.DOTALL)
 
-vsebina_datoteke = vrni_vsebino('prva_stran.html')
+vsebina_datoteke = vrni_vsebino('..\\prva_stran.html')
 
 # for drzava in re.finditer(regex_drzave, vsebina_datoteke):
 #     for mesto in re.finditer(regex_mesta, drzava.group('mesta')):
@@ -53,22 +52,23 @@ for drzava in re.finditer(regex_drzave, vsebina_datoteke):
         mesta_naslovi[mesto.group('mesto')] = mesto.group('urlmesta')
         mesta_drzave[mesto.group('mesto')] = drzava.group('drzava')
         # print(drzava.group('drzava'), mesto.group('mesto'), mesto.group('urlmesta'))
-#
-# print(mesta_naslovi)
-# print(mesta_drzave)
-#
-# if not os.path.exists('mesta'):
-#             os.mkdir('mesta')
+
+print(mesta_naslovi)
+print(mesta_drzave)
+
+# if not os.path.exists('..\\mesta'):
+#             os.mkdir('..\\mesta')
 #
 # for mesto in mesta_naslovi.keys():
-#     stevec = 0
 #     url_mesta = 'https://www.yelp.com/search?find_desc=Restaurants&find_loc=' + mesta_naslovi[mesto] + '&sortby=review_count&start={}'
-#     if not os.path.exists('mesta\\' + mesto):
-#             os.mkdir('mesta\\' + mesto)
-#     for _ in range(5):
-#         relativna_pot_datoteke = 'mesta\\' + mesto + '\\stran{}.html'.format(str(stevec))
-#         shrani(url_mesta.format(str(stevec)), relativna_pot_datoteke)
-#         stevec += 10
+#     if not os.path.exists('..\\mesta\\' + mesto):
+#             os.mkdir('..\\mesta\\' + mesto)
+#     for i in range(1, 6):
+#         relativna_pot_datoteke = '..\\mesta\\' + mesto + '\\stran{}.html'.format(str(i))
+#         if os.path.isfile(relativna_pot_datoteke):
+#             print('Že shranjeno!')
+#             continue
+#         shrani(url_mesta.format(str((i - 1)*10)), relativna_pot_datoteke)
 #         time.sleep(0.05)
 
 regex_strani = re.compile(r'<div class="media-story">\s+<h3 class="search-result-title">\s+<span class="indexed-biz-name">(?P<stevilo>\d+)\.\s+<a class="biz-name js-analytics-click" data-analytics-label="biz-name" href=".*?" data-hovercard-id=".*?" ><span >(?P<ime>.*?)</span>.*?<i class="star-img .*?" title="(?P<zvezdice>.*?) star rating">.*?<span class="review-count rating-qualifier">\s+(?P<stevilo_ocen>\d+)\s+reviews?.*?<span class="business-attribute price-range">(?P<cena>.*?)</span>.*?<span class="category-str-list">(?P<tipi>.*?)</span>', re.DOTALL)
@@ -77,9 +77,9 @@ stevec_restavracij = 1
 
 slovarji_restavracij = []
 
-for mapa in os.listdir('mesta'):
-    for datoteka in os.listdir('mesta\\' + mapa):
-        pot = 'mesta\\' + mapa + '\\' + datoteka
+for mapa in os.listdir('..\\mesta'):
+    for datoteka in os.listdir('..\\mesta\\' + mapa):
+        pot = '..\\mesta\\' + mapa + '\\' + datoteka
         html_strani = vrni_vsebino(pot)
         for vnos in re.finditer(regex_strani, html_strani):
             html_tipov = vnos.group('tipi')
@@ -105,7 +105,7 @@ for slovar in slovarji_restavracij:
     print(slovar)
 
 
-with open('tabela.csv', 'w') as csv_datoteka:
+with open('..\\tabela.csv', 'w', encoding='utf-8') as csv_datoteka:
     naslovi = ('id', 'Ime restavracije', 'Mesto', 'Država', 'Ocena', 'Število ocen', 'Cena', 'Vrsta restavracije')
     pisec = csv.DictWriter(csv_datoteka, fieldnames=naslovi)
     pisec.writeheader()
