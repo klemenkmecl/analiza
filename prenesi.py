@@ -4,7 +4,6 @@ import os
 import csv
 import time
 
-test
 
 def vrni_vsebino(datoteka):
 
