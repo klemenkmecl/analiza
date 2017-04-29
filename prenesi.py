@@ -8,7 +8,7 @@ mesta_naslovi, mesta_drzave = orodja.ustvari_slovarja_mest()
 
 orodja.prenesi_html_datoteke(mesta_naslovi, mesta_drzave)
 
-slovarji_restavracij = orodja.ustvari_slovar_restavracij(mesta_drzave)
+slovarji_restavracij = orodja.ustvari_slovarje_restavracij(mesta_drzave)
 
 '''Začasno!'''
 
