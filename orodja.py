@@ -70,7 +70,7 @@ def prenesi_html_datoteke(mesta_naslovi, mesta_drzave):
 
 
     for mesto in mesta_naslovi.keys():
-        url_mesta = 'https://www.yelp.com/search?find_desc=Restaurants&find_loc=' + mesta_naslovi[mesto] + '&sortby=review_count&start={}'
+        url_mesta = 'http://www.yelp.com/search?find_desc=Restaurants&find_loc=' + mesta_naslovi[mesto] + '&start={}&sortby=review_count'
         if not os.path.exists('..\\mesta\\' + mesto):
                 os.mkdir('..\\mesta\\' + mesto)
         for i in range(1, 6):
@@ -85,7 +85,9 @@ def ustvari_slovarje_restavracij(mesta_drzave):
 
     stevec_restavracij = 1
     slovarji_restavracij = []
-    regex_strani = re.compile(r'<div class="media-story">\s+<h3 class="search-result-title">\s+<span class="indexed-biz-name">(?P<stevilo>\d+)\.\s+<a class="biz-name js-analytics-click" data-analytics-label="biz-name" href=".*?" data-hovercard-id=".*?" ><span >(?P<ime>.*?)</span>.*?<i class="star-img .*?" title="(?P<zvezdice>.*?) star rating">.*?<span class="review-count rating-qualifier">\s+(?P<stevilo_ocen>\d+)\s+reviews?.*?<span class="business-attribute price-range">(?P<cena>.*?)</span>.*?<span class="category-str-list">(?P<tipi>.*?)</span>', re.DOTALL)
+    # prejšnji regex
+    # regex_strani = re.compile(r'<div class="media-story">\s+<h3 class="search-result-title">\s+<span class="indexed-biz-name">(?P<stevilo>\d+)\.\s+<a class="biz-name js-analytics-click" data-analytics-label="biz-name" href=".*?" data-hovercard-id=".*?" ><span >(?P<ime>.*?)</span>.*?<i class="star-img .*?" title="(?P<zvezdice>.*?) star rating">.*?<span class="review-count rating-qualifier">\s+(?P<stevilo_ocen>\d+)\s+reviews?.*?<span class="business-attribute price-range">(?P<cena>.*?)</span>.*?<span class="category-str-list">(?P<tipi>.*?)</span>', re.DOTALL)
+    regex_strani = re.compile(r'<div class="media-story">\s+<h3 class="search-result-title">\s+<span class="indexed-biz-name">(?P<stevilo>\d+)\.\s+<a class="biz-name js-analytics-click" data-analytics-label="biz-name" href=".*?" data-hovercard-id=".*?" ><span >(?P<ime>.*?)</span></a>.*?<div class=".*?" title="(?P<zvezdice>.*?) star rating">.*?<span class="review-count rating-qualifier">\s+(?P<stevilo_ocen>\d+) reviews?.*?<span class="business-attribute price-range">(?P<cena>.*?)</span>.*?<span class="category-str-list">(?P<tipi>.*?)</span>', re.DOTALL)
 
     for mapa in os.listdir('..\\mesta'):
         for datoteka in os.listdir('..\\mesta\\' + mapa):
