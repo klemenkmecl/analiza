@@ -24,12 +24,11 @@ def shrani(url, ime_datoteke):
             datoteka.write(besedilo)
             print('Shranjeno!')
 
-def ustvari_csv_datoteko(slovarji_restavracij):
+def ustvari_csv_datoteko(slovarji_restavracij, ime_datoteke, naslovi):
 
     '''Funkcija iz slovarja ustvari csv datoteko.'''
 
-    with open('..\\tabela.csv', 'w', encoding='utf-8') as csv_datoteka:
-        naslovi = ('id', 'Ime restavracije', 'Mesto', 'Država', 'Ocena', 'Število ocen', 'Cena', 'Vrsta restavracije')
+    with open('..\\' + ime_datoteke + '.csv', 'w', encoding='utf-8') as csv_datoteka:
         pisec = csv.DictWriter(csv_datoteka, fieldnames=naslovi)
         pisec.writeheader()
         for slovar in slovarji_restavracij:
@@ -107,9 +106,14 @@ def ustvari_slovarje_restavracij(mesta_drzave):
                 slovar_restavracije['Država'] = mesta_drzave.get(mapa)
                 slovar_restavracije['Ocena'] = vnos.group('zvezdice')
                 slovar_restavracije['Število ocen'] = vnos.group('stevilo_ocen')
-                slovar_restavracije['Cena'] = vnos.group('cena')
+
+                # Cena je na spletni strani predstavljena s številom znakov za določeno valuto, na primer $. Zato za ceno
+                # vzamemo dolžino zajetega niza (od 1 do 4).
+                slovar_restavracije['Cena'] = len(vnos.group('cena'))
+
                 slovar_restavracije['Vrsta restavracije'] = niz_tipov
                 slovarji_restavracij.append(slovar_restavracije)
                 stevec_restavracij += 1
 
     return slovarji_restavracij
+
