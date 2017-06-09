@@ -1,6 +1,5 @@
-# analiza
-Projekt iz analize podatkov pri predmetu Programiranje 1
+# Projekt iz analize podatkov pri predmetu Programiranje 1
 
 V mapi programi so shranjene tri Python skripte. Program, ki je shranjen v datoteki prenesi.py, najprej v datoteko prva_stran.html spravi stran, ki vsebuje seznam mest, v katerih se nahajajo restavracije, pa tudi povezave, ki jih potrebuje za prenos podatkov s spletne strani http:\\www.yelp.com.
 Nato ustvari mapo z imenom mesta in vanjo shrani vse prenešene html datoteke. Če zaženemo datoteko z imenom ustvari_tabeli.py, program najprej preveri, ali obstajata datoteki tabela_restavracij.csv in tabela_tipov.csv. Če datoteki ne obstajata, potem podatke iz html datotek v mapi mesta zapiše v csv datoteki s tema imenoma.
-Analiza podatkov je shranjena v datoteki z imenom Restavracije.ipynb.
+Analiza podatkov je shranjena v datoteki z imenom Restavracije.ipynb. Mape z imenom mesta nisem vključil v projekt, saj je prevelika, da bi jo naložil na strežnik. Vsi podatki so shranjeni v datotekah tabela_restavracij.csv in tabela_tipov.csv Če boste zagnali datoteko prenesi.py, program ne bo našel mape z imenom mesta in bo znova prenesel vse podatke s spletne strani, kar je lahko zamudno.
