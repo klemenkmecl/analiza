@@ -7,12 +7,6 @@ _, mesta_drzave = orodja.ustvari_slovarja_mest()
 
 slovarji_restavracij, slovarji_tipov = orodja.ustvari_seznama_restavracij_in_tipov(mesta_drzave)
 
-# for slovar in slovarji_tipov:
-#     print(slovar)
-
-#for slovar in slovarji_restavracij:
-#    print(slovar)
-
 naslovi_restavracije = ('id', 'Ime restavracije', 'Mesto', 'Država', 'Ocena', 'Število ocen', 'Cena')
 naslovi_tipi = ('id', 'Tip restavracije')
 if not os.path.isfile('..\\tabela_restavracij.csv'):

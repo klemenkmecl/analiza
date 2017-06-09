@@ -108,7 +108,10 @@ def ustvari_seznama_restavracij_in_tipov(mesta_drzave):
                     slovarji_tipov.append(slovar_tipov)
                 slovar_restavracije = {}
                 slovar_restavracije['id'] = str(stevec_restavracij)
-                slovar_restavracije['Ime restavracije'] = vnos.group('ime')
+                if '&amp;' in vnos.group('ime'):
+                    slovar_restavracije['Ime restavracije'] = vnos.group('ime').replace('&amp;', '&')
+                else:
+                    slovar_restavracije['Ime restavracije'] = vnos.group('ime')
                 slovar_restavracije['Mesto'] = mapa
                 slovar_restavracije['Država'] = mesta_drzave.get(mapa)
                 slovar_restavracije['Ocena'] = vnos.group('zvezdice')
